@@ -2,6 +2,11 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "QR-Code Generator", "QR-Code Generator\QR-Code Generator.vbproj", "{82206AB5-CE9A-4711-9D6F-2F71BD4A2C6E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BD96E14F-7425-402C-9E62-0C7AA89C30AE} = {BD96E14F-7425-402C-9E62-0C7AA89C30AE}
+	EndProjectSection
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "QRCode", "..\QRCode-Class\QRCode\QRCode\QRCode.vbproj", "{BD96E14F-7425-402C-9E62-0C7AA89C30AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +18,10 @@ Global
 		{82206AB5-CE9A-4711-9D6F-2F71BD4A2C6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82206AB5-CE9A-4711-9D6F-2F71BD4A2C6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82206AB5-CE9A-4711-9D6F-2F71BD4A2C6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD96E14F-7425-402C-9E62-0C7AA89C30AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD96E14F-7425-402C-9E62-0C7AA89C30AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD96E14F-7425-402C-9E62-0C7AA89C30AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD96E14F-7425-402C-9E62-0C7AA89C30AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
