@@ -1,4 +1,4 @@
-﻿Public Class FastPixel
+﻿Friend Class FastPixel
     Private rgbValues() As Byte
     Private bmpData As Imaging.BitmapData
     Private bmpPtr As IntPtr

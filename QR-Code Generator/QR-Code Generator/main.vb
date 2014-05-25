@@ -10,9 +10,8 @@ Public Class main
     Public main_TileSize As Integer = 10
 
     Private Sub btn_generate_Click(sender As Object, e As EventArgs) Handles btn_generate.Click
-        Dim QR As New QRCode_encode
+        Dim QR As New QRCode_encode()
 
-        Dim Test As QRCodeForce
 
         If (Check_JIS8(Me.txt_Data.Text)) Then
             'main_Version = QRCode_GetVersion(main_ErrorCorrection, Me.txt_Data.Text)
