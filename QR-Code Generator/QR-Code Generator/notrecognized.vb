@@ -8,9 +8,9 @@
 
     Private Sub notrecognized_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If notrecognized_Mask <> -1 Then
-            Me.pct_qrcode.Image = QRCode_StartNew(notrecognized_Version, notrecognized_TileSize, notrecognized_ErrorCorrection, notrecognized_textstring, notrecognized_Rand, 1)
+            ' Me.pct_qrcode.Image = QRCode_StartNew(notrecognized_Version, notrecognized_TileSize, notrecognized_ErrorCorrection, notrecognized_textstring, notrecognized_Rand, 1)
         Else
-            Me.pct_qrcode.Image = QRCode_StartNew(notrecognized_Version, notrecognized_TileSize, notrecognized_ErrorCorrection, notrecognized_textstring, notrecognized_Rand)
+            'Me.pct_qrcode.Image = QRCode_StartNew(notrecognized_Version, notrecognized_TileSize, notrecognized_ErrorCorrection, notrecognized_textstring, notrecognized_Rand)
             notrecognized_Mask = 0
         End If
     End Sub
@@ -25,7 +25,7 @@
             End If
             notrecognized_Mask = 0
         End If
-        Me.pct_qrcode.Image = QRCode_StartNew(notrecognized_Version, notrecognized_TileSize, notrecognized_ErrorCorrection, notrecognized_textstring, notrecognized_Rand, notrecognized_Mask)
+        'Me.pct_qrcode.Image = QRCode_StartNew(notrecognized_Version, notrecognized_TileSize, notrecognized_ErrorCorrection, notrecognized_textstring, notrecognized_Rand, notrecognized_Mask)
     End Sub
 
     Private Sub btn_recognized_Click(sender As Object, e As EventArgs) Handles btn_recognized.Click

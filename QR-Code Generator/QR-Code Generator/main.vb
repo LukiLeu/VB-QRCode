@@ -1,4 +1,6 @@
 ﻿Imports System.Text.RegularExpressions
+Imports QRCode.QRCode_encode
+Imports QRCode
 
 Public Class main
     Public main_ErrorCorrection As Integer = 0
@@ -8,18 +10,17 @@ Public Class main
     Public main_TileSize As Integer = 10
 
     Private Sub btn_generate_Click(sender As Object, e As EventArgs) Handles btn_generate.Click
+        Dim QR As New QRCode_encode
+
+        Dim Test As QRCodeForce
+
         If (Check_JIS8(Me.txt_Data.Text)) Then
-            main_Version = QRCode_GetVersion(main_ErrorCorrection, Me.txt_Data.Text)
-            Me.pct_qrcode.Image = QRCode_StartNew(main_Version, main_TileSize, main_ErrorCorrection, Me.txt_Data.Text, main_Rand)
+            'main_Version = QRCode_GetVersion(main_ErrorCorrection, Me.txt_Data.Text)
+            'Me.pct_qrcode.Image = QRCode_StartNew(main_Version, main_TileSize, main_ErrorCorrection, Me.txt_Data.Text, main_Rand)
             Me.pct_qrcode.Image.Save("D:\extracted\" & main_Version.ToString & ".jpg")
             Me.btn_recognized.Enabled = True
             Me.btn_save.Enabled = True
             Me.btn_recognizedfalse.Enabled = True
-
-            For i = 0 To 7
-                Me.pct_qrcode.Image = QRCode_StartNew(15, main_TileSize, 1, main_textstring, main_Rand, i)
-                Me.pct_qrcode.Image.Save("D:\extracted\" & main_ErrorCorrection.ToString & i & main_Version.ToString("00") & ".jpg")
-            Next
         Else
             MsgBox("Not JIS8")
         End If
