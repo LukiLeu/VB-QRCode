@@ -1,4 +1,7 @@
-﻿Public Class notrecognized
+﻿Imports QRCode.QRCode_encode
+Imports QRCode
+
+Public Class notrecognized
     Public notrecognized_Mask As Integer = 0
     Public notrecognized_ErrorCorrection As Integer = 0
     Public notrecognized_textstring As String = ""
@@ -7,12 +10,18 @@
     Public notrecognized_TileSize As Integer = 0
 
     Private Sub notrecognized_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If notrecognized_Mask <> -1 Then
-            ' Me.pct_qrcode.Image = QRCode_StartNew(notrecognized_Version, notrecognized_TileSize, notrecognized_ErrorCorrection, notrecognized_textstring, notrecognized_Rand, 1)
-        Else
-            'Me.pct_qrcode.Image = QRCode_StartNew(notrecognized_Version, notrecognized_TileSize, notrecognized_ErrorCorrection, notrecognized_textstring, notrecognized_Rand)
-            notrecognized_Mask = 0
-        End If
+        Try
+            If notrecognized_Mask <> -1 Then
+                Dim QR As New QRCode_encode(notrecognized_textstring, notrecognized_ErrorCorrection, notrecognized_TileSize, notrecognized_Rand, QRCodeForce.ForceOwnSettings, notrecognized_Version, 1)
+                Me.pct_qrcode.Image = QR.Generate()
+            Else
+                Dim QR As New QRCode_encode(notrecognized_textstring, notrecognized_ErrorCorrection, notrecognized_TileSize, notrecognized_Rand, QRCodeForce.ForceOwnSettings, notrecognized_Version, 0)
+                Me.pct_qrcode.Image = QR.Generate()
+                notrecognized_Mask = 0
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.OkOnly, "Error")
+        End Try
     End Sub
 
     Private Sub btn_notrecognized_Click(sender As Object, e As EventArgs) Handles btn_notrecognized.Click
@@ -25,7 +34,12 @@
             End If
             notrecognized_Mask = 0
         End If
-        'Me.pct_qrcode.Image = QRCode_StartNew(notrecognized_Version, notrecognized_TileSize, notrecognized_ErrorCorrection, notrecognized_textstring, notrecognized_Rand, notrecognized_Mask)
+        Try
+            Dim QR As New QRCode_encode(notrecognized_textstring, notrecognized_ErrorCorrection, notrecognized_TileSize, notrecognized_Rand, QRCodeForce.ForceOwnSettings, notrecognized_Version, notrecognized_Mask)
+            Me.pct_qrcode.Image = QR.Generate()
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.OkOnly, "Error")
+        End Try
     End Sub
 
     Private Sub btn_recognized_Click(sender As Object, e As EventArgs) Handles btn_recognized.Click
@@ -35,7 +49,19 @@
     End Sub
 
     Private Sub btn_save_Click(sender As Object, e As EventArgs) Handles btn_save.Click
+        Dim d As New SaveFileDialog
+        d.CheckFileExists = False
+        d.CheckPathExists = True
+        d.Title = "Speicherort"
+        d.Filter = "Image|*.jpg"
 
+        Dim ergebnis As DialogResult
+
+        ergebnis = d.ShowDialog
+
+        If ergebnis = Windows.Forms.DialogResult.OK Then
+            Me.pct_qrcode.Image.Save(d.FileName)
+        End If
     End Sub
 
     Private Sub notrecognized_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing

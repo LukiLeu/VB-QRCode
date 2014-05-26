@@ -1,41 +1,31 @@
-﻿Imports System.Text.RegularExpressions
-Imports QRCode.QRCode_encode
+﻿Imports QRCode.QRCode_encode
 Imports QRCode
 
 Public Class main
-    Public main_ErrorCorrection As Integer = 0
-    Public main_textstring As String = "Hal"
     Public main_Version As Integer = 0
     Public main_Rand As Integer = 5
     Public main_TileSize As Integer = 10
 
     Private Sub btn_generate_Click(sender As Object, e As EventArgs) Handles btn_generate.Click
-        Dim QR As New QRCode_encode()
+        Dim QRError As QRCodeErrorCorrectionLevel = Me.cbb_ErrorCorrectionLevel.SelectedIndex
+
+        ' Try to generate a QRCode
+        Try
+            Dim QR As New QRCode_encode(Me.txt_Data.Text, Me.cbb_ErrorCorrectionLevel.SelectedIndex, Me.num_Tile.Value, Me.num_Border.Value)
+            Me.pct_qrcode.Image = QR.Generate()
 
 
-        If (Check_JIS8(Me.txt_Data.Text)) Then
-            'main_Version = QRCode_GetVersion(main_ErrorCorrection, Me.txt_Data.Text)
-            'Me.pct_qrcode.Image = QRCode_StartNew(main_Version, main_TileSize, main_ErrorCorrection, Me.txt_Data.Text, main_Rand)
-            Me.pct_qrcode.Image.Save("D:\extracted\" & main_Version.ToString & ".jpg")
             Me.btn_recognized.Enabled = True
             Me.btn_save.Enabled = True
             Me.btn_recognizedfalse.Enabled = True
-        Else
-            MsgBox("Not JIS8")
-        End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.OkOnly, "Error")
+        End Try
     End Sub
 
-    Public Function Check_JIS8(ByVal TextString As String) As Boolean
-        Dim pattern As String = "^[\x00-\x7F]+$"
-        Dim reg As New Regex(pattern)
-        Return reg.IsMatch(TextString)
-    End Function
-
-
-
     Private Sub btn_recognized_Click(sender As Object, e As EventArgs) Handles btn_recognized.Click
-        notrecognized.notrecognized_ErrorCorrection = main_ErrorCorrection
-        notrecognized.notrecognized_textstring = main_textstring
+        notrecognized.notrecognized_ErrorCorrection = Me.cbb_ErrorCorrectionLevel.SelectedIndex
+        notrecognized.notrecognized_textstring = Me.txt_Data.Text
         notrecognized.notrecognized_Version = main_Version
         notrecognized.notrecognized_Rand = main_Rand
         notrecognized.notrecognized_TileSize = main_TileSize
@@ -45,13 +35,29 @@ Public Class main
     End Sub
 
     Private Sub btn_recognizedfalse_Click(sender As Object, e As EventArgs) Handles btn_recognizedfalse.Click
-        notrecognized.notrecognized_ErrorCorrection = main_ErrorCorrection
-        notrecognized.notrecognized_textstring = main_textstring
-        notrecognized.notrecognized_Version = main_Version + 1
+        notrecognized.notrecognized_ErrorCorrection = Me.cbb_ErrorCorrectionLevel.SelectedIndex
+        notrecognized.notrecognized_textstring = Me.txt_Data.Text
+        If main_Version < 40 Then notrecognized.notrecognized_Version = main_Version + 1 Else notrecognized.notrecognized_Version = main_Version
         notrecognized.notrecognized_Rand = main_Rand
         notrecognized.notrecognized_TileSize = main_TileSize
         notrecognized.notrecognized_Mask = -1
         notrecognized.Show()
         Me.Hide()
+    End Sub
+
+    Private Sub btn_save_Click(sender As Object, e As EventArgs) Handles btn_save.Click
+        Dim d As New SaveFileDialog
+        d.CheckFileExists = False
+        d.CheckPathExists = True
+        d.Title = "Speicherort"
+        d.Filter = "Image|*.jpg"
+
+        Dim ergebnis As DialogResult
+
+        ergebnis = d.ShowDialog
+
+        If ergebnis = Windows.Forms.DialogResult.OK Then
+            Me.pct_qrcode.Image.Save(d.FileName)
+        End If
     End Sub
 End Class

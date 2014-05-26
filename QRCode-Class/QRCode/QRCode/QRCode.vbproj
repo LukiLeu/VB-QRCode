@@ -54,6 +54,7 @@
     <Import Include="System.Collections.Generic" />
     <Import Include="System.Diagnostics" />
     <Import Include="System.Drawing" />
+    <Import Include="System.Text.RegularExpressions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FastPixels.vb" />

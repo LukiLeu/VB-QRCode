@@ -1,6 +1,18 @@
 ﻿Option Explicit On
 
 Module QRCode_encode_functions
+    Public ColorDraw As Color = Color.Black
+    Public ColorClear As Color = Color.White
+    Public ColorError As Color = Color.Red
+    Public VersionUsed As Integer = 0
+    Public MaskUsed As Integer = 0
+
+    Public Function QRCode_CheckJIS8(ByVal TextString As String) As Boolean
+        Dim pattern As String = "^[\x00-\x7F]+$"
+        Dim reg As New Regex(pattern)
+        Return reg.IsMatch(TextString)
+    End Function
+
     Public Function QRCode_GetVersion(ByVal ErrorCorrection As Integer, ByVal Textstring As String)
         Dim DataCodewords As Integer(,) = {{0, 0, 0, 0}, {17, 14, 11, 7}, {32, 26, 20, 14}, {53, 42, 32, 24}, {78, 62, 46, 34}, {106, 84, 60, 44}, {134, 106, 74, 58}, {154, 122, 86, 64}, {192, 152, 108, 84}, {230, 180, 130, 98}, {271, 213, 151, 119}, {321, 251, 177, 137}, {367, 287, 203, 155}, {425, 331, 241, 177}, {458, 362, 258, 194}, {520, 412, 292, 220}, {586, 450, 322, 250}, {644, 504, 364, 280}, {718, 560, 394, 310}, {792, 624, 442, 338}, {585, 666, 482, 382}, {929, 711, 509, 403}, {1003, 779, 565, 439}, {1091, 857, 611, 461}, {1171, 911, 661, 511}, {1273, 997, 715, 535}, {1367, 1059, 751, 593}, {1465, 1125, 805, 325}, {1528, 1190, 868, 658}, {1628, 1264, 908, 698}, {1732, 1370, 982, 742}, {1840, 1452, 1030, 790}, {1952, 1538, 1112, 842}, {2068, 1628, 1168, 898}, {2188, 1722, 1228, 958}, {2303, 1809, 1283, 983}, {2431, 1911, 1351, 1051}, {2563, 1989, 1423, 1093}, {2699, 2099, 1499, 1139}, {2809, 2213, 1579, 1219}, {2953, 2331, 1663, 1273}}
 
@@ -26,6 +38,9 @@ Module QRCode_encode_functions
         Dim QRCode(SizeQR, SizeQR) As Integer
         Dim Mask As Integer = 0
 
+        ' Set the used version
+        VersionUsed = Version
+
         ' Clear th epicture
         QRCode.Initialize()
 
@@ -40,6 +55,9 @@ Module QRCode_encode_functions
 
         ' Mask the QR-Code
         Mask = QRCode_Mask(TileSize, SizeQR, QRCode, MaskForce)
+
+        ' Set the used mask
+        MaskUsed = Mask
 
         ' Set the alignment patterns again
         QRCode_Alignment_Draw(TileSize, SizeQR, Version, QRCode)
@@ -1060,9 +1078,6 @@ Module QRCode_encode_functions
 
     End Sub
 
-    Public ColorDraw As Color = Color.Black
-    Public ColorClear As Color = Color.White
-
     Private Sub QRCode_Draw_Tile(ByVal TileSize As Integer, ByVal XPosition As Integer, ByVal YPosition As Integer, ByRef QRCode As Integer(,))
         QRCode(XPosition - 1, YPosition - 1) = 1
     End Sub
@@ -1084,18 +1099,18 @@ Module QRCode_encode_functions
     End Function
 
     Private Sub QRCode_Draw_QRCode(ByVal TileSize As Integer, ByVal Size As Integer, ByRef QRCode As Integer(,), ByVal RandSize As Integer, ByRef QRCode_Image As FastPixel)
-        QRCode_Image.Clear(Color.White)
+        QRCode_Image.Clear(ColorClear)
 
         For f = 0 To Size - 1
             For g = 0 To Size - 1
                 For i = (f) * TileSize To (f) * TileSize + TileSize - 1
                     For e = (g) * TileSize To (g) * TileSize + TileSize - 1
                         If QRCode(f, g) = 1 Then
-                            QRCode_Image.SetPixel(i + RandSize * TileSize, e + RandSize * TileSize, Color.Black)
+                            QRCode_Image.SetPixel(i + RandSize * TileSize, e + RandSize * TileSize, ColorDraw)
                         ElseIf QRCode(f, g) = -1 Then
-                            QRCode_Image.SetPixel(i + RandSize * TileSize, e + RandSize * TileSize, Color.White)
+                            QRCode_Image.SetPixel(i + RandSize * TileSize, e + RandSize * TileSize, ColorClear)
                         Else
-                            QRCode_Image.SetPixel(i + RandSize * TileSize, e + RandSize * TileSize, Color.Red)
+                            QRCode_Image.SetPixel(i + RandSize * TileSize, e + RandSize * TileSize, ColorError)
                         End If
                     Next
                 Next
