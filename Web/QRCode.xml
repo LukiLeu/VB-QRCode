@@ -1,0 +1,114 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+QRCode
+</name>
+</assembly>
+<members>
+<member name="P:QRCode.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:QRCode.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:QRCode.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="M:QRCode.QRCode_encode.#ctor(System.String,QRCode.QRCode_encode.QRCodeErrorCorrectionLevel,System.Int32,System.Int32,QRCode.QRCode_encode.QRCodeForce,QRCode.QRCode_encode.QRCodeVersion,QRCode.QRCode_encode.QRCodeMask)">
+	<summary>
+ Initialize a new QR-Code with user specific values
+ </summary>
+	<param name="TextString">The Texstring which should be encoded in the QRCode.</param>
+	<param name="ErrorCorrection">The Error Correction Level of the QRCode.</param>
+	<param name="TileSize">The Size in pixel of a square from the QRCode.</param>
+	<param name="BorderSize">The Size in pixel of the border around the QRCode.</param>
+	<param name="SettingsForce">Force manual settings</param>
+	<param name="VersionForce">The version which should be forced, if force is enabled.</param>
+	<param name="MaskForce">The mask which should be forced, if force is enabled.</param>
+	<remarks></remarks>
+</member><member name="M:QRCode.QRCode_encode.#ctor(System.String,QRCode.QRCode_encode.QRCodeErrorCorrectionLevel,System.Int32,System.Int32)">
+	<summary>
+ Initialize a new QR-Code with user specific values
+ </summary>
+	<param name="TextString">The Texstring which should be encoded in the QRCode.</param>
+	<param name="ErrorCorrection">The Error Correction Level of the QRCode.</param>
+	<param name="TileSize">The Size in pixel of a square from the QRCode.</param>
+	<param name="BorderSize">The Size in pixel of the border around the QRCode.</param>
+	<remarks></remarks>
+</member><member name="M:QRCode.QRCode_encode.Generate">
+	<summary>
+ This function creates the QRCode.
+ </summary>
+	<returns>Returns the QRCode as Bitmap.</returns>
+	<remarks></remarks>
+</member><member name="P:QRCode.QRCode_encode.TextString">
+	<summary>
+ Gets or sets the TextString
+ </summary>
+	<value>The new TextString to set</value>
+	<returns>The actual TextString</returns>
+	<remarks></remarks>
+</member><member name="P:QRCode.QRCode_encode.ErrorCorrection">
+	<summary>
+ Gets or sets the ErrorCorrection
+ </summary>
+	<value>The new ErrorCorrection to set</value>
+	<returns>The actual ErrorCorrection</returns>
+	<remarks></remarks>
+</member><member name="P:QRCode.QRCode_encode.VersionForce">
+	<summary>
+ Gets or sets the Forced Version
+ </summary>
+	<value>The new Forced Version to set</value>
+	<returns>The actual Forced Version</returns>
+	<remarks></remarks>
+</member><member name="P:QRCode.QRCode_encode.MaskForce">
+	<summary>
+ Gets or sets the Forced Mask
+ </summary>
+	<value>The new Forced Mask to set</value>
+	<returns>The actual Forced Mask</returns>
+	<remarks></remarks>
+</member><member name="P:QRCode.QRCode_encode.SettingsForce">
+	<summary>
+ Gets or sets the force of manual settings
+ </summary>
+	<value>The new force of manual settings to set</value>
+	<returns>The actual force of manual settings</returns>
+	<remarks></remarks>
+</member><member name="P:QRCode.QRCode_encode.TileSize">
+	<summary>
+ Gets or sets the TileSize
+ </summary>
+	<value>The new TileSize to set</value>
+	<returns>The actual TileSize</returns>
+	<remarks></remarks>
+</member><member name="P:QRCode.QRCode_encode.BorderSize">
+	<summary>
+ Gets or sets the BorderSize
+ </summary>
+	<value>The new BorderSize to set</value>
+	<returns>The actual BorderSize</returns>
+	<remarks></remarks>
+</member><member name="P:QRCode.QRCode_encode.VersionUsed">
+	<summary>
+ Reads the used version for the decoding
+ </summary>
+	<value></value>
+	<returns>The used Version for the decoding</returns>
+	<remarks></remarks>
+</member><member name="P:QRCode.QRCode_encode.MaskUsed">
+	<summary>
+ Reads the used mask for the decoding
+ </summary>
+	<value></value>
+	<returns>The used mask for the decoding</returns>
+	<remarks></remarks>
+</member>
+</members>
+</doc>
